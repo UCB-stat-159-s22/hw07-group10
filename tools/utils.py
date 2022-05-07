@@ -123,6 +123,5 @@ def evaluate_model(y_predict, y_test):
     plt.xlabel("True Class")
     plt.ylabel("Predicted Class")
     plt.show()
-    # plt.savefig('figures/confusion_matrix.png')
     # Return the figure
     return figure
