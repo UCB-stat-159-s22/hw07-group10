@@ -5,7 +5,7 @@ def normalize(data, norm_features=[]):
     Inputs:
         - data: data matrix
         - norm_features: list of column names to normalize
-    
+	
     Outputs:
         - None. Normalizing is done in place.
     '''
@@ -33,7 +33,6 @@ def preprocess_data(data, features_to_drop=[]):
     
     y = data['Classes'].values
     X = data.drop(["Unnamed: 0"], axis=1)
-    X = X.drop(features_to_drop, axis=1)
     X = X.drop(features_to_drop, axis=1)
     
     # One hot encode categorial variables
