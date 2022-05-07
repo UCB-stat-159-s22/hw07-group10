@@ -1,4 +1,8 @@
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 
 
 def normalize(data, norm_features=[]):
@@ -58,14 +62,19 @@ def restructure_data(data, header_index, column_names):
     an additional column "Region".
 
     Inputs:
-        - data: original data matrix (with two tables stacked vertically)
-        - header_index: list of index which indicate the header of each
-            table.
-        - column_names: the column_names of each table.
+    - data: original data matrix (with two tables stacked vertically)
+    - header_index: list of index which indicate the header of each
+        table.
+    - column_names: the column_names of each table.
 
     Outputs:
-        - cleaned: restructured data.
+    - cleaned: restructured data.
     '''
+    # header_index and column_names should all be lists
+    if type(header_index) != list:
+        raise TypeError('header_index must be a list')
+    if type(column_names) != list:
+        raise TypeError('column_names must be a list')
     # Locate first and second table
     first_half = data.iloc[header_index[0] + 1:header_index[1]-1, :]
     second_half = data.iloc[header_index[1]+1:, :]
@@ -82,3 +91,38 @@ def restructure_data(data, header_index, column_names):
     return cleaned
 
 
+def evaluate_model(y_predict, y_test):
+    '''
+    Evaluates the classifier model on the testing dataset by graphing a
+    confusion matrix and printing the accuracy, precision, and recall
+    of the classifier model.
+
+    Inputs:
+    - y_predict: list of predictions.
+    - y_test: list of true values.
+
+    Ouputs:
+    - figure: Matplotlib Figure object for the confusion matrix heatmap.
+    '''
+    # y_predict and y_test must be same length
+    if len(y_predict) != len(y_test):
+        raise ValueError('Prediction and true value list must be same length.')
+    # Confusion matrix
+    confusion = confusion_matrix(y_predict, y_test)
+    # Metrics
+    tn, fp, fn, tp = confusion.ravel()
+    n = len(y_test)
+    # Print metrics
+    print('Accuracy: ' + str((tp+tn)/n))
+    print('Precision: ' + str(tp/(tp+fp)))
+    print('Recall: ' + str(tp/(tp+fn)))
+    # Graph confusion matrix
+    figure = plt.figure()
+    sns.heatmap(confusion, annot=True, cmap="inferno")
+    plt.title("Confusion Matrix on Testing Data")
+    plt.xlabel("True Class")
+    plt.ylabel("Predicted Class")
+    plt.show()
+    # plt.savefig('figures/confusion_matrix.png')
+    # Return the figure
+    return figure
