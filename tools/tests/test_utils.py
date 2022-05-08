@@ -58,7 +58,7 @@ def test_preprocess_data_shape():
         raise AssertionError(detail.__str__() + "\n" + msg)
 
 
-def test_restructure_data():
+def test_restructure_data_simple():
     '''
     Load in forest fire dataset and restructure the data.
     Check for the correct dimension.
@@ -73,4 +73,16 @@ def test_restructure_data():
         assert cleaned.shape == (243, 15)
     except AssertionError as detail:
         msg = "The restructured table have falsy dimension. The correct dimension should be (243, 15)."
+        raise AssertionError(detail.__str__() + "\n" + msg)
+
+
+def test_evaluate_model():
+    '''
+    Test the return object of evaluate_model is a Figure.
+    '''
+    figure = utils.evaluate_model([1, 2], [1, 2])
+    try:
+        assert isinstance(figure, plt.Figure)
+    except AssertionError as detail:
+        msg = "The return object is not a matplotlib.pyplot.Figure"
         raise AssertionError(detail.__str__() + "\n" + msg)
