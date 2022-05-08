@@ -1,0 +1,37 @@
+FIGURES=$(wildcard figures/*.png)
+
+# Intermediate data csv
+data/Algerian_forest_fires_dataset_CLEANED.csv : data_cleaning.ipynb data/Algerian_forest_fires_dataset_UPDATE.csv
+	jupyter execute $<
+
+# Models
+models/random_forest.pkl : random_forest.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv models/random_forest_gridcv.pkl
+	jupyter execute $<
+	
+.PHONY : models
+models : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+.PHONY : eda
+eda : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+.PHONY : all
+all : EDA.ipynb models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute EDA.ipynb
+	jupyter execute models.ipynb
+
+.PHONY : env
+env : 
+	bash -i envsetup.sh
+	pip install .
+
+.PHONY : clean
+clean :
+	rm -f data/Algerian_forest_fires_dataset_CLEANED.csv
+	rm -f $(FIGURES)
+	rm -f models/random_forest.pkl
+
+.PHONY : test
+test : data/Algerian_forest_fires_dataset_CLEANED.csv
+	pytest tools
