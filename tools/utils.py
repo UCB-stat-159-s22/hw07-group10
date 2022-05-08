@@ -70,11 +70,6 @@ def restructure_data(data, header_index, column_names):
     Outputs:
     - cleaned: restructured data.
     '''
-    # header_index and column_names should all be lists
-    if type(header_index) != list:
-        raise TypeError('header_index must be a list')
-    if type(column_names) != list:
-        raise TypeError('column_names must be a list')
     # Locate first and second table
     first_half = data.iloc[header_index[0] + 1:header_index[1]-1, :]
     second_half = data.iloc[header_index[1]+1:, :]
@@ -87,7 +82,7 @@ def restructure_data(data, header_index, column_names):
     second_half["Region"] = "Sidi-Bel Abbes"
     cleaned = pd.concat([first_half, second_half], axis=0)
     cleaned = cleaned.dropna()
-
+    # Return
     return cleaned
 
 
@@ -125,3 +120,4 @@ def evaluate_model(y_predict, y_test):
     plt.show()
     # Return the figure
     return figure
+
