@@ -26,12 +26,19 @@ env :
 	bash -i envsetup.sh
 	pip install .
 
+.PHONY : test
+test : data/Algerian_forest_fires_dataset_CLEANED.csv
+	pytest tools
+
 .PHONY : clean
 clean :
 	rm -f data/Algerian_forest_fires_dataset_CLEANED.csv
 	rm -f $(FIGURES)
 	rm -f models/random_forest.pkl
-
-.PHONY : test
-test : data/Algerian_forest_fires_dataset_CLEANED.csv
-	pytest tools
+	
+.PHONY : nuke
+nuke :
+	rm -f data/Algerian_forest_fires_dataset_CLEANED.csv
+	rm -f $(FIGURES)
+	rm -f models/random_forest.pkl
+	rm -f models/random_forest_gridcv.pkl
