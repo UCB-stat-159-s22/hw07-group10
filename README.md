@@ -2,7 +2,7 @@
 
 Binder Link:
 
-This is a project attempting to predict forest fires, while attempting to do so in a reproducible manner. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The period from June 2012 to September 2012.
+This is a project attempting to predict forest fires in a reproducible manner. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
 
 Attribute Information:
 
