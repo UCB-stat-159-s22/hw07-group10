@@ -5,7 +5,7 @@ data/Algerian_forest_fires_dataset_CLEANED.csv : data_cleaning.ipynb data/Algeri
 	jupyter execute $<
 
 # Models
-models/random_forest.pkl : random_forest.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv models/random_forest_gridcv.pkl
+models/random_forest.pkl : random_forest.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
 	jupyter execute $<
 	
 .PHONY : models
