@@ -16,6 +16,6 @@
 - Responsible for writing report in `main.ipynb`.
 
 ## Minori Jaggia
-- Responsible for EDA.ipynb
+- Responsible for parts of `EDA.ipynb`
 - Responsible for environment.yml
 - Responsible for creating jupyterbook, binder link, and configuring github actions
