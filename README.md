@@ -19,4 +19,7 @@ Attribute Information:
 11. Fire Weather Index (FWI) Index: 0 to 31.1
 12. Classes: two classes, namely fire and not fire.
 
+Visit this link for more information about the fire index features:
+https://www.nwcg.gov/publications/pms437/cffdrs/fire-weather-index-system
+
 Github page: 

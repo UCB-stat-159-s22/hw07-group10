@@ -14,3 +14,8 @@
 - Responsible for the `normalize()` and `preprocess_data()` functions in `tools\utils.py`.
 - Responsible for configuring `tools` as an installable package (`pyproj.toml`, `setup.py`, `setup.config`).
 - Responsible for writing report in `main.ipynb`.
+
+## Minori Jaggia
+- Responsible for EDA.ipynb
+- Responsible for environment.yml
+- Responsible for creating jupyterbook, binder link, and configuring github actions
