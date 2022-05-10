@@ -3,7 +3,35 @@ FIGURES=$(wildcard figures/*.png)
 # Intermediate data csv
 data/Algerian_forest_fires_dataset_CLEANED.csv : data_cleaning.ipynb data/Algerian_forest_fires_dataset_UPDATE.csv
 	jupyter execute $<
-	
+
+figures/figure_1.png : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_2.png : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_3.png : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_4.png : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_5.png : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_6.png : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_7.png : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+figures/figure_8.png : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+	jupyter execute $<
+
+.PHONY : env
+env : 
+	bash -i envsetup.sh
+
 .PHONY : models
 models : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
 	jupyter execute $<
@@ -16,10 +44,7 @@ eda : EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
 all : EDA.ipynb models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
 	jupyter execute EDA.ipynb
 	jupyter execute models.ipynb
-
-.PHONY : env
-env : 
-	bash -i envsetup.sh
+	jupyter execute main.ipynb
 
 .PHONY : test
 test : data/Algerian_forest_fires_dataset_CLEANED.csv
