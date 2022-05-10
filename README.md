@@ -32,6 +32,7 @@ Before anything, we recommend creating a seperate environment. Make sure you hav
 
 ```
 make env
+conda activate fires
 ```
 
 ### List of Convenient Makefile Commands
