@@ -6,7 +6,7 @@
 - Responsible for the random forest classifier model (`models.ipynb`, etc.)
 - Responsible for `restructure_data()` and `evaluate_model()` function in `tools\utils.py`.
 - Responsible for writing tests for the util functions.
-- Responsible for `Makefile`.
+- Responsible for `Makefile`(and Makefile section in README).
 
 ## Ingrid Chien
 
