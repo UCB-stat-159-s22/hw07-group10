@@ -3,10 +3,6 @@ FIGURES=$(wildcard figures/*.png)
 # Intermediate data csv
 data/Algerian_forest_fires_dataset_CLEANED.csv : data_cleaning.ipynb data/Algerian_forest_fires_dataset_UPDATE.csv
 	jupyter execute $<
-
-# Models
-models/random_forest.pkl : random_forest.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
-	jupyter execute $<
 	
 .PHONY : models
 models : models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
