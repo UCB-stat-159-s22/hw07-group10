@@ -1,6 +1,6 @@
 # Reproducible Research Project for Predicting Forest Fires.
 
-Binder Link:
+Binder Link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/UCB-stat-159-s22/hw07-group10/HEAD?labpath=main.ipynb)
 
 Github page:
 

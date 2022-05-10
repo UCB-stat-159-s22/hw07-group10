@@ -18,4 +18,10 @@
 ## Minori Jaggia
 - Responsible for parts of `EDA.ipynb`
 - Responsible for `environment.yml`
-- Responsible for creating jupyterbook, binder link, and configuring github actions
+- Responsible for creating jupyterbook, and configuring github actions
+
+## Leif-Martin Sæther Sunde
+- Responsible for parts of `EDA.ipynb`.
+- Responsible for comparing results in `models.ipynb`.
+- Responsible for parts of README.
+- Responsible for binder support.
