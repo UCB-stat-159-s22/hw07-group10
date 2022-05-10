@@ -1,6 +1,6 @@
 FIGURES=$(wildcard figures/*.png)
 NOTEBOOKS=$(wildcard *.ipynb)
-CLEANED=EDA.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
+CLEANED=data/Algerian_forest_fires_dataset_CLEANED.csv
 
 # Intermediate data csv
 data/Algerian_forest_fires_dataset_CLEANED.csv : data_cleaning.ipynb data/Algerian_forest_fires_dataset_UPDATE.csv
