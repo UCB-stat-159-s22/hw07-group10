@@ -20,7 +20,6 @@ all : EDA.ipynb models.ipynb data/Algerian_forest_fires_dataset_CLEANED.csv
 .PHONY : env
 env : 
 	bash -i envsetup.sh
-	pip install .
 
 .PHONY : test
 test : data/Algerian_forest_fires_dataset_CLEANED.csv
