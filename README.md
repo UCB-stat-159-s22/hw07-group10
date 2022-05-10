@@ -1,8 +1,10 @@
 # Reproducible Research Project for Predicting Forest Fires.
 
 Binder Link:
+
 Github page:
-Dataset Link:
+
+Dataset Link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6515974.svg)](https://doi.org/10.5281/zenodo.6515974)
 
 This is a project attempting to predict forest fires in a reproducible manner. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
 
