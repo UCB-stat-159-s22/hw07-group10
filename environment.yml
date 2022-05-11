@@ -8,3 +8,4 @@ dependencies:
   - matplotlib=3.5
   - seaborn=0.11
   - scikit-learn=1.0
+  - dataframe_image=0.1
