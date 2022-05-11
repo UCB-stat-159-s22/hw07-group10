@@ -3,8 +3,8 @@
 
 format: jb-book
 root: main
-#chapters:
-#- file: data_cleaning
-#- file: EDA
-#- file: models
+chapters:
+- file: data_cleaning
+- file: EDA
+- file: models
 
