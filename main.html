@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predicting Algerian Forest Fires with Machine Learning &#8212; Homework 7</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="data_cleaning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Homework 7</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1 current">
+  <a class="reference internal" href="#">
+   Predicting Algerian Forest Fires with Machine Learning
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="EDA.html">
+   Perform exploratory data analysis to guide model tuning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="models.html">
+   Predicting Algerian Forest Fires
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/main.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmain.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UCB-stat-159-s22/hw07-group10/HEAD?labpath=main.ipynb/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/main.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Predicting Algerian Forest Fires with Machine Learning
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#purpose-of-analysis">
+     Purpose of Analysis
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assumptions">
+     Assumptions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-data">
+   The Data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-acquisition">
+     Data Acquisition
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-cleaning">
+     Data Cleaning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploratory-data-analysis">
+   Exploratory Data Analysis
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pairwise-correlations">
+     Pairwise Correlations
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fire-behavior-indices">
+     Fire Behavior Indices
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fuel-moisture-codes">
+     Fuel Moisture Codes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fwi-distributions">
+     FWI Distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#models">
+   Models
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-forest-model">
+     Random Forest Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression-model">
+     Logistic Regression Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpreting-results-and-model-comparison">
+     Interpreting Results and Model Comparison
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#author-contributions">
+   Author Contributions
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Predicting Algerian Forest Fires with Machine Learning</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Predicting Algerian Forest Fires with Machine Learning
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#purpose-of-analysis">
+     Purpose of Analysis
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assumptions">
+     Assumptions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-data">
+   The Data
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-acquisition">
+     Data Acquisition
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-cleaning">
+     Data Cleaning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploratory-data-analysis">
+   Exploratory Data Analysis
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pairwise-correlations">
+     Pairwise Correlations
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fire-behavior-indices">
+     Fire Behavior Indices
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fuel-moisture-codes">
+     Fuel Moisture Codes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fwi-distributions">
+     FWI Distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#models">
+   Models
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-forest-model">
+     Random Forest Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression-model">
+     Logistic Regression Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpreting-results-and-model-comparison">
+     Interpreting Results and Model Comparison
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#author-contributions">
+   Author Contributions
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="predicting-algerian-forest-fires-with-machine-learning">
+<h1>Predicting Algerian Forest Fires with Machine Learning<a class="headerlink" href="#predicting-algerian-forest-fires-with-machine-learning" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Authors: Ingrid Chien, Johnson Du, Minori Jaggia, Leif Martin Saether Sunde</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Starting in June 2012, the Bejaia and Sidi-Bel Abbes regions of Algeria experienced numerous wildfires that likely resulted from a heat wave. The fires burned throuh Algeria’s pine and cork oak forests, damaging a total area of 295 square kilometers.</p>
+<div class="section" id="purpose-of-analysis">
+<h2>Purpose of Analysis<a class="headerlink" href="#purpose-of-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Do weather metrics in the Algerian regions determine the occureces of forest fires? How distinct are weather metrics for forest fires? How can we detect fires before they occur?</p>
+<p>Our team uses machine learning to process features and predict whether or not a fire will occur based on significant attributes. Our model is based on data from Bejaia and Sidi-Bel Abbes, but we aim to build more robust and generalizable models that can help policy makers in different regions implement precautionary measures against fires before they strike.</p>
+</div>
+<div class="section" id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
+<p>In our analysis, we assume that the response variable is binary. The response variable is the class ‘fire’ or ‘not fire.’ We do not consider midway situations, such as fires that were close to ignition but utimately faded. We assume that our observations are unique instances with no extreme outliers. We also deduce that the samples are representative and large enough to make justifiable predictions.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="the-data">
+<h1>The Data<a class="headerlink" href="#the-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-acquisition">
+<h2>Data Acquisition<a class="headerlink" href="#data-acquisition" title="Permalink to this headline">¶</a></h2>
+<p>The multivariate dataset is acquired from the UCI Machine Learning repository. It can be found at <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Algerian+Forest+Fires+Dataset++">https://archive.ics.uci.edu/ml/datasets/Algerian+Forest+Fires+Dataset++</a>.</p>
+<p>The data contain a total of 244 instances for the two regions with 122 instances per region. There are 12 attributes, including date variables and weather metrics, that are measured from June 2012 to September 2012. Descriptions of the attributes can be found at the provided link. There are no missing values.</p>
+<p>There are 2 repsonse classes, ‘fire’ and ‘not fire.’</p>
+</div>
+<div class="section" id="data-cleaning">
+<h2>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Permalink to this headline">¶</a></h2>
+<p>The data is originally formatted as two stacked datasets where the top corresponds to Bejaia and the bottom correponds to Sidi-Bel Abbes. We combine them into one dataframe and create a ‘Region’ variable to distinguish regions. We reset the index and polish the column names for easy manipulation.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exploratory-data-analysis">
+<h1>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this headline">¶</a></h1>
+<p>We first examine the correlation between all pairs of attributes except ‘date’ and ‘time’. We find that some variables are highly correlated with one another, such as BUI and DC. These findings are later reflected in our feature selection process in modeling to avoid multicollinearity.</p>
+<div class="section" id="pairwise-correlations">
+<h2>Pairwise Correlations<a class="headerlink" href="#pairwise-correlations" title="Permalink to this headline">¶</a></h2>
+<p>Let us focus on the relationships for fire behavior indicies and fuel moisture codes. We expect to see correlations. For example, one fuel moisture code should heavily effect another fuel moisture code, as they capture similar information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_1.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_10_0.png" src="_images/main_10_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 1: Pairwise correlations between features of forest fire dataset</p></div>
+<div class="section" id="fire-behavior-indices">
+<h2>Fire Behavior Indices<a class="headerlink" href="#fire-behavior-indices" title="Permalink to this headline">¶</a></h2>
+<p>As expected, the variables rougly follow linear relationships and show positive correlation. It is no surprise that, for example, higher FWI induces higher BUI if larger fires are likely to have large buildups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_2.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_13_0.png" src="_images/main_13_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 2: Pairwise correlations for fire behavior indices</p></div>
+<div class="section" id="fuel-moisture-codes">
+<h2>Fuel Moisture Codes<a class="headerlink" href="#fuel-moisture-codes" title="Permalink to this headline">¶</a></h2>
+<p>DMC and DC roughly follow a linear relationship. The remaining relationships seems to be logarithmic, though the curves are quite sharp. As FFMC increases, DC stays consistent until around 80 FFMC where the spread increasees greatly. The FFMC is an inverse measure of moisture content for easily ignited surface litter and other cured fine fuels. Thus, it makes sense that FFMC increases as DC increases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_3.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_16_0.png" src="_images/main_16_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 3: Pairwise correlations for fuel moisture codes</p></div>
+<div class="section" id="fwi-distributions">
+<h2>FWI Distributions<a class="headerlink" href="#fwi-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Another interesting attribute is FWI. The distributions of FWI for ‘fire’ instances and ‘not fire’ instances drastically differ. If FWI is over about 8, then the data indicates we can be reasonably sure the instance is a ‘fire’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_4.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_19_0.png" src="_images/main_19_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 4: Distribution of fire weather index (FWI) of different classes</p><p>Additional EDA shows that about half of the fires occured in July 2012. Also, there exists outliers in the ‘Rain’ attribute, but they are kept in the data because we assume consecutive days of heavy rain are natural.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+<p>We build a random forest model and a logistic regression model to predict the occurence of forest fires.</p>
+<div class="section" id="random-forest-model">
+<h2>Random Forest Model<a class="headerlink" href="#random-forest-model" title="Permalink to this headline">¶</a></h2>
+<p>Our grid search cross validation searches the model and performs 10-fold cross validation on combinations of hyperparameters. The hyperparameters we consider are the number of trees to grow, and the maximum depth of each tree. Considering that our data is small and we have a small amount of features, it is reasonable to guess that we won’t need a large number of trees, and we don’t need to grow them very deep.</p>
+<p>During cross validation, we choose to evaluate the model based on <strong>recall</strong> because we prioritize penalzing false negatives. We want to avoid predicting no fire when there is actually a fire.</p>
+<p>From the figure below, we conclude that recall is stable when we use more than 35 trees and that results are best when the trees are depth 1. The cross validation results shows that the best hyperparameter choices are 38 trees with maximum depths of 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_5.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_23_0.png" src="_images/main_23_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 5: (Left) Change in CV recall score as number of trees increase; (Right) CV recall score for different maximum tree depth and different number of trees</p><p>The confusion matrix shows that our random forest model has great performance. The accuracy is 100%! Can we do better or worse with simple logistic regression?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_6.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_26_0.png" src="_images/main_26_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 6: Confusion matrix for random forest model</p><p><strong>Accuracy: 1.0</strong></p>
+<p><strong>Precision: 1.0</strong></p>
+<p><strong>Recall: 1.0</strong></p>
+</div>
+<div class="section" id="logistic-regression-model">
+<h2>Logistic Regression Model<a class="headerlink" href="#logistic-regression-model" title="Permalink to this headline">¶</a></h2>
+<p>By using logistic regression, we assume there is a possibility that the data can be linearly separated. Depending on which model does better, we make further assumptions about the nature of our data. If the random forest is superior, we believe the data is better suited for non linear algorithms.</p>
+<p>With previous EDA, we find that that DMC, DC, and BUI and highly correlated with one another. Only DMC is kept to avoid  multicollinearity. Notice how this step is skipped in the random forest model because the forest implicity performs feature subset selection.</p>
+<p>We use logistic regression with l2 regularization and the ‘lbfgs’ solver. Our logistic regression model also has great performance, though there are a few more errors compared to the random forest model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_7.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_31_0.png" src="_images/main_31_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 7: Confusion matrix for logistic regression model</p><p><strong>Accuracy: 0.9629629629629629</strong></p>
+<p><strong>Precision: 0.9583333333333334</strong></p>
+<p><strong>Recall: 0.9787234042553191</strong></p>
+<p>To better undestand the model, let us examine the area under the ROC curve, which plots true positive rates against false positive rates for different thresholds.</p>
+<p>Amazingly, the area under the curve is close to 1! Our linear classifier is almost perfect, which leads us to believe the data can be linearly separated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_8.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_34_0.png" src="_images/main_34_0.png" />
+</div>
+</div>
+<p style="text-align: center;">Figure 8: ROC curve for logistic regression model</p></div>
+<div class="section" id="interpreting-results-and-model-comparison">
+<h2>Interpreting Results and Model Comparison<a class="headerlink" href="#interpreting-results-and-model-comparison" title="Permalink to this headline">¶</a></h2>
+<p>Both models are extremely well-conditioned for the task of classifying forest fires. Even a simple logistic regression model with typical feature engineering achives a near perfect accuracy. Is it posisble that the data is inherently good for classification? Perhaps Algerian forest firest have particularly distinct features that make them easy to distinguish from regular forest conditions. From EDA, we see that most fires occured in July, leading us to believe that ‘month’ is a significant factor in determining fire occurence.</p>
+<p>The random forest outperforms the logistic model. This is expected because random forests are more expressive. The removal of correlated variables in the logistic model need not be the reason for poorer performance because they are calculated from kept features. The random forest succeeds by using a non linear split that cannot be represented by the logistic model.</p>
+<p>Our models are conditioned to predict fires in regions of Algeria. It is unclear how the models will respond to forest fires in other locations. We aim to conduct further exploration by training our models with data from different locations with similar climates. We can monitor the models’ variances and ask the question: Are Algerian forest fires easier to predict than other forest fires?</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="author-contributions">
+<h1>Author Contributions<a class="headerlink" href="#author-contributions" title="Permalink to this headline">¶</a></h1>
+<p><strong>Johnson Du</strong></p>
+<ul class="simple">
+<li><p>Responsible for <code class="docutils literal notranslate"><span class="pre">data_cleaning.ipynb</span></code>.</p></li>
+<li><p>Responsible for the random forest classifier model (<code class="docutils literal notranslate"><span class="pre">random_forest.ipynb</span></code>, etc.)</p></li>
+<li><p>Responsible for <code class="docutils literal notranslate"><span class="pre">restructure_data()</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluate_model()</span></code> function in <code class="docutils literal notranslate"><span class="pre">tools\utils.py</span></code>.</p></li>
+<li><p>Responsible for writing tests for the util functions.</p></li>
+<li><p>Responsible for <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>.</p></li>
+</ul>
+<p><strong>Ingrid Chien</strong></p>
+<ul class="simple">
+<li><p>Responsible for the logistic regresion model (<code class="docutils literal notranslate"><span class="pre">random_forest.ipynb</span></code>, etc.).</p></li>
+<li><p>Responsible for the <code class="docutils literal notranslate"><span class="pre">normalize()</span></code> and <code class="docutils literal notranslate"><span class="pre">preprocess_data()</span></code> functions in <code class="docutils literal notranslate"><span class="pre">tools\utils.py</span></code>.</p></li>
+<li><p>Responsible for configuring <code class="docutils literal notranslate"><span class="pre">tools</span></code> as an installable package (<code class="docutils literal notranslate"><span class="pre">pyproj.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.config</span></code>).</p></li>
+<li><p>Responsible for writing report in <code class="docutils literal notranslate"><span class="pre">main.ipynb</span></code>.</p></li>
+</ul>
+<p><strong>Minori Jaggia</strong></p>
+<ul class="simple">
+<li><p>Responsible for parts of <code class="docutils literal notranslate"><span class="pre">EDA.ipynb</span></code></p></li>
+<li><p>Responsible for <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></li>
+<li><p>Responsible for creating jupyterbook, and configuring github actions</p></li>
+</ul>
+<p><strong>Leif-Martin Sæther Sunde</strong></p>
+<ul class="simple">
+<li><p>Responsible for parts of <code class="docutils literal notranslate"><span class="pre">EDA.ipynb</span></code>.</p></li>
+<li><p>Responsible for comparing results in <code class="docutils literal notranslate"><span class="pre">models.ipynb</span></code>.</p></li>
+<li><p>Responsible for parts of README.</p></li>
+<li><p>Responsible for binder support.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="data_cleaning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Minori Jaggia, Leif-Martin Saether Sunde, Ingrid Chien, Johnson Du<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,1078 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predicting Algerian Forest Fires &#8212; Homework 7</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Perform exploratory data analysis to guide model tuning" href="EDA.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Homework 7</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="main.html">
+   Predicting Algerian Forest Fires with Machine Learning
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="EDA.html">
+   Perform exploratory data analysis to guide model tuning
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Predicting Algerian Forest Fires
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/models.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodels.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UCB-stat-159-s22/hw07-group10/HEAD?labpath=main.ipynb/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/models.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Predicting Algerian Forest Fires
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#models">
+   Models
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-forest-model">
+   Random Forest Model
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intro">
+     Intro
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#process-data">
+     Process Data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hyperparameter-tuning">
+     Hyperparameter Tuning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#selecting-the-metric-for-evaluation">
+       Selecting the Metric for Evaluation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interpretating-the-result">
+       Interpretating the Result
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluating-the-model">
+     Evaluating the Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#further-exploration">
+     Further Exploration
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logistic-regression">
+   Logistic Regression
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling">
+     Modeling
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#predictions-and-metrics">
+       Predictions and Metrics
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interpreting-the-result">
+       Interpreting the Result
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#comparing-the-results">
+       Comparing the Results
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Predicting Algerian Forest Fires</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Predicting Algerian Forest Fires
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#models">
+   Models
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-forest-model">
+   Random Forest Model
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intro">
+     Intro
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#process-data">
+     Process Data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hyperparameter-tuning">
+     Hyperparameter Tuning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#selecting-the-metric-for-evaluation">
+       Selecting the Metric for Evaluation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interpretating-the-result">
+       Interpretating the Result
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluating-the-model">
+     Evaluating the Model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#further-exploration">
+     Further Exploration
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logistic-regression">
+   Logistic Regression
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling">
+     Modeling
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#predictions-and-metrics">
+       Predictions and Metrics
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interpreting-the-result">
+       Interpreting the Result
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#comparing-the-results">
+       Comparing the Results
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="predicting-algerian-forest-fires">
+<h1>Predicting Algerian Forest Fires<a class="headerlink" href="#predicting-algerian-forest-fires" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+<p>We build a random forest model and a logistic regression model to predict the occurence forest fires. We then compare the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="n">utils</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">plot_roc_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load and further clean data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Algerian_forest_fires_dataset_CLEANED.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="random-forest-model">
+<h1>Random Forest Model<a class="headerlink" href="#random-forest-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>Given the size of the dataset (<span class="math notranslate nohighlight">\(243 \times 15\)</span>), building a random forest would probably be an overkill. Nontheless, we are just curious how the performance would differ when compared to the Logistic Regression model.</p>
+<p>Because random forest is based on bootstrap aggregating decision trees, we don’t need to check any statistical features on our data since we are not making any mathematical assumptions. The only thing that need to be done further on the data is to encode all the categorical variables. The Random Forest Classifier in sklearn cannot recognize string typed categorical variables in default, thus we need to encode them into <span class="math notranslate nohighlight">\({0,1}\)</span> integers.</p>
+</div>
+<div class="section" id="process-data">
+<h2>Process Data<a class="headerlink" href="#process-data" title="Permalink to this headline">¶</a></h2>
+<p>Given that our dataset is small, we decided to reserve <span class="math notranslate nohighlight">\(1/3\)</span> of the data as testing. We don’t want to reserve too much, otherwise random forest might perform badly on a very small traning dataset. This is because bootstrap sampling on small datasets might result in many repeated samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_rf</span><span class="p">,</span> <span class="n">y_rf</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Classes&quot;</span><span class="p">])</span>
+<span class="c1"># Train test split on 1/3</span>
+<span class="n">X_train_rf</span><span class="p">,</span> <span class="n">X_test_rf</span><span class="p">,</span> <span class="n">y_train_rf</span><span class="p">,</span> <span class="n">y_test_rf</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_rf</span><span class="p">,</span> <span class="n">y_rf</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_rf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day</th>
+      <th>month</th>
+      <th>year</th>
+      <th>Temperature</th>
+      <th>RH</th>
+      <th>Ws</th>
+      <th>Rain</th>
+      <th>FFMC</th>
+      <th>DMC</th>
+      <th>DC</th>
+      <th>ISI</th>
+      <th>BUI</th>
+      <th>FWI</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>226</th>
+      <td>14</td>
+      <td>9</td>
+      <td>2012</td>
+      <td>28</td>
+      <td>81</td>
+      <td>15</td>
+      <td>0.0</td>
+      <td>84.6</td>
+      <td>12.6</td>
+      <td>41.5</td>
+      <td>4.3</td>
+      <td>14.3</td>
+      <td>5.7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>5</td>
+      <td>8</td>
+      <td>2012</td>
+      <td>34</td>
+      <td>65</td>
+      <td>13</td>
+      <td>0.0</td>
+      <td>86.8</td>
+      <td>11.1</td>
+      <td>29.7</td>
+      <td>5.2</td>
+      <td>11.5</td>
+      <td>6.1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>18</td>
+      <td>7</td>
+      <td>2012</td>
+      <td>33</td>
+      <td>68</td>
+      <td>15</td>
+      <td>0.0</td>
+      <td>86.1</td>
+      <td>23.9</td>
+      <td>51.6</td>
+      <td>5.2</td>
+      <td>23.9</td>
+      <td>9.1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>206</th>
+      <td>25</td>
+      <td>8</td>
+      <td>2012</td>
+      <td>34</td>
+      <td>40</td>
+      <td>18</td>
+      <td>0.0</td>
+      <td>92.1</td>
+      <td>56.3</td>
+      <td>157.5</td>
+      <td>14.3</td>
+      <td>59.5</td>
+      <td>31.1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>23</td>
+      <td>6</td>
+      <td>2012</td>
+      <td>33</td>
+      <td>59</td>
+      <td>16</td>
+      <td>0.8</td>
+      <td>74.2</td>
+      <td>7.0</td>
+      <td>8.3</td>
+      <td>1.6</td>
+      <td>6.7</td>
+      <td>0.8</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="hyperparameter-tuning">
+<h2>Hyperparameter Tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">¶</a></h2>
+<p>Perform Grid Search Cross Validation on the random forest model. The algorithm search through different values for hyperparameters and perform cross validation on each combination. Given the small dataset, I decided to search through the number of trees between the range <span class="math notranslate nohighlight">\([1,100]\)</span> and the maximum depth between <span class="math notranslate nohighlight">\([1,5]\)</span>. The algorithm will perform <span class="math notranslate nohighlight">\(10\)</span>-Fold corss validation on each combination of hyperparameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Grid search cross validation</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;models/random_forest_gridcv.pkl&quot;</span><span class="p">):</span>
+    <span class="c1"># Define param_grid</span>
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+              <span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
+    <span class="c1"># Define random forest model</span>
+    <span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="c1"># Grid search cross validation</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_rf</span><span class="p">,</span> <span class="n">y_train_rf</span><span class="p">)</span>
+
+    <span class="c1"># Print best result</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+    <span class="c1"># Save grid search model</span>
+    <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="s1">&#39;models/random_forest_gridcv.pkl&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;models/random_forest_gridcv.pkl&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully loaded pre-trained model.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully loaded pre-trained model.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="selecting-the-metric-for-evaluation">
+<h3>Selecting the Metric for Evaluation<a class="headerlink" href="#selecting-the-metric-for-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>I chose to evaluate on the <strong>recall</strong> (or <strong>true positive rate</strong>) for each model during cross validation. This is because, as a model predicting forest fires, we really don’t want to predict no fire when there is actually fire. Therefore, we want to penalize <strong>false negatives</strong> (predicting no fire wrongly). Recall does exactly this job.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot CV results</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="s2">&quot;param_n_estimators&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_test_score&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">cv_results</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="s2">&quot;param_n_estimators&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_test_score&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">cv_results</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;param_max_depth&quot;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Random Forest Hyperparameter Tuning&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Number of Trees&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Mean Cross Validation Score (Recall)&quot;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Max Tree Depth&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/figure_5.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/models_12_0.png" src="_images/models_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="interpretating-the-result">
+<h3>Interpretating the Result<a class="headerlink" href="#interpretating-the-result" title="Permalink to this headline">¶</a></h3>
+<p>The figures above display the results of cross validation. Observing the left figure we see that the cross validated recall (true positive rate) stablizes when there are more than <span class="math notranslate nohighlight">\(35\)</span> trees being grown. On the right figure, we see that the tree with maximum depth of one is actually the best performing model overall. We can observe that when the number of trees is larger than <span class="math notranslate nohighlight">\(35\)</span>, the tree with depth one is consistently performing the best. Thus, based on the cross validation result, the best performing model have <span class="math notranslate nohighlight">\(38\)</span> trees with maximum depth of <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save best random forest</span>
+<span class="n">final_model_rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">final_model_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_rf</span><span class="p">,</span> <span class="n">y_train_rf</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">final_model_rf</span><span class="p">,</span> <span class="s1">&#39;models/random_forest.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;models/random_forest.pkl&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="evaluating-the-model">
+<h2>Evaluating the Model<a class="headerlink" href="#evaluating-the-model" title="Permalink to this headline">¶</a></h2>
+<p>We evaluate the performance of the model by looking at the confusion matrix and printing the following metrics: the accuracy, the precision, and the recall.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_predict_rf</span> <span class="o">=</span> <span class="n">final_model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_rf</span><span class="p">)</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_predict_rf</span><span class="p">,</span> <span class="n">y_test_rf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 1.0
+Precision: 1.0
+Recall: 1.0
+</pre></div>
+</div>
+<img alt="_images/models_16_1.png" src="_images/models_16_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/figure_6.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="further-exploration">
+<h2>Further Exploration<a class="headerlink" href="#further-exploration" title="Permalink to this headline">¶</a></h2>
+<p>By looking into our final random forest model, we see that ‘day’, ‘month’, ‘year’, ‘RH’, ‘Ws’, and ‘Region’ are never being used as a condition to perform a split. We can also see that the most important feature that the random forest based on is tne ‘ISI’ (Initial Spread Index).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Features never used:</span>
+<span class="n">X_train_rf</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">final_model_rf</span><span class="o">.</span><span class="n">feature_importances_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;day&#39;, &#39;month&#39;, &#39;year&#39;, &#39;RH&#39;, &#39;Ws&#39;, &#39;Region&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Most important feature</span>
+<span class="n">X_train_rf</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">final_model_rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;ISI&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="logistic-regression">
+<h1>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-preprocessing">
+<h2>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>We first examine the correlation matrix of the weather metrics in our dataset. We find that DMC, DC, and BUI and highly correlated with one another. To avoid multicollinearity, we remove DC and BUI from our feature set. We choose to use DMC becuase it is the least correlated with the remaining features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examine correlation matrix</span>
+<span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>Temperature</th>
+      <th>RH</th>
+      <th>Ws</th>
+      <th>Rain</th>
+      <th>FFMC</th>
+      <th>DMC</th>
+      <th>DC</th>
+      <th>ISI</th>
+      <th>BUI</th>
+      <th>FWI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>year</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Temperature</th>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>-0.651400</td>
+      <td>-0.284510</td>
+      <td>-0.326492</td>
+      <td>0.676568</td>
+      <td>0.485687</td>
+      <td>0.376284</td>
+      <td>0.603871</td>
+      <td>0.459789</td>
+      <td>0.566670</td>
+    </tr>
+    <tr>
+      <th>RH</th>
+      <td>NaN</td>
+      <td>-0.651400</td>
+      <td>1.000000</td>
+      <td>0.244048</td>
+      <td>0.222356</td>
+      <td>-0.644873</td>
+      <td>-0.408519</td>
+      <td>-0.226941</td>
+      <td>-0.686667</td>
+      <td>-0.353841</td>
+      <td>-0.580957</td>
+    </tr>
+    <tr>
+      <th>Ws</th>
+      <td>NaN</td>
+      <td>-0.284510</td>
+      <td>0.244048</td>
+      <td>1.000000</td>
+      <td>0.171506</td>
+      <td>-0.166548</td>
+      <td>-0.000721</td>
+      <td>0.079135</td>
+      <td>0.008532</td>
+      <td>0.031438</td>
+      <td>0.032368</td>
+    </tr>
+    <tr>
+      <th>Rain</th>
+      <td>NaN</td>
+      <td>-0.326492</td>
+      <td>0.222356</td>
+      <td>0.171506</td>
+      <td>1.000000</td>
+      <td>-0.543906</td>
+      <td>-0.288773</td>
+      <td>-0.298023</td>
+      <td>-0.347484</td>
+      <td>-0.299852</td>
+      <td>-0.324422</td>
+    </tr>
+    <tr>
+      <th>FFMC</th>
+      <td>NaN</td>
+      <td>0.676568</td>
+      <td>-0.644873</td>
+      <td>-0.166548</td>
+      <td>-0.543906</td>
+      <td>1.000000</td>
+      <td>0.603608</td>
+      <td>0.507397</td>
+      <td>0.740007</td>
+      <td>0.592011</td>
+      <td>0.691132</td>
+    </tr>
+    <tr>
+      <th>DMC</th>
+      <td>NaN</td>
+      <td>0.485687</td>
+      <td>-0.408519</td>
+      <td>-0.000721</td>
+      <td>-0.288773</td>
+      <td>0.603608</td>
+      <td>1.000000</td>
+      <td>0.875925</td>
+      <td>0.680454</td>
+      <td>0.982248</td>
+      <td>0.875864</td>
+    </tr>
+    <tr>
+      <th>DC</th>
+      <td>NaN</td>
+      <td>0.376284</td>
+      <td>-0.226941</td>
+      <td>0.079135</td>
+      <td>-0.298023</td>
+      <td>0.507397</td>
+      <td>0.875925</td>
+      <td>1.000000</td>
+      <td>0.508643</td>
+      <td>0.941988</td>
+      <td>0.739521</td>
+    </tr>
+    <tr>
+      <th>ISI</th>
+      <td>NaN</td>
+      <td>0.603871</td>
+      <td>-0.686667</td>
+      <td>0.008532</td>
+      <td>-0.347484</td>
+      <td>0.740007</td>
+      <td>0.680454</td>
+      <td>0.508643</td>
+      <td>1.000000</td>
+      <td>0.644093</td>
+      <td>0.922895</td>
+    </tr>
+    <tr>
+      <th>BUI</th>
+      <td>NaN</td>
+      <td>0.459789</td>
+      <td>-0.353841</td>
+      <td>0.031438</td>
+      <td>-0.299852</td>
+      <td>0.592011</td>
+      <td>0.982248</td>
+      <td>0.941988</td>
+      <td>0.644093</td>
+      <td>1.000000</td>
+      <td>0.857973</td>
+    </tr>
+    <tr>
+      <th>FWI</th>
+      <td>NaN</td>
+      <td>0.566670</td>
+      <td>-0.580957</td>
+      <td>0.032368</td>
+      <td>-0.324422</td>
+      <td>0.691132</td>
+      <td>0.875864</td>
+      <td>0.739521</td>
+      <td>0.922895</td>
+      <td>0.857973</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We preprocess the data by removing the ‘year’ column because there is only one value for the entire dataset. We also remove the DC and BUI columns. We encode ‘Regions’ in the feature matrix and ‘Classes’ in the y vector to binary representations. Lastly, we normalize the weather metrics in the feature matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_lr</span><span class="p">,</span> <span class="n">y_lr</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Classes&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;DC&#39;</span><span class="p">,</span> <span class="s1">&#39;BUI&#39;</span><span class="p">])</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">X_lr</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;Ws&#39;</span><span class="p">,</span> <span class="s1">&#39;Rain&#39;</span><span class="p">,</span> <span class="s1">&#39;FFMC&#39;</span><span class="p">,</span> <span class="s1">&#39;DMC&#39;</span><span class="p">,</span> <span class="s1">&#39;ISI&#39;</span><span class="p">,</span> <span class="s1">&#39;FWI&#39;</span><span class="p">])</span>
+<span class="n">X_train_lr</span><span class="p">,</span> <span class="n">X_test_lr</span><span class="p">,</span> <span class="n">y_train_lr</span><span class="p">,</span> <span class="n">y_test_lr</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_lr</span><span class="p">,</span> <span class="n">y_lr</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="modeling">
+<h2>Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_lr</span><span class="p">,</span> <span class="n">y_train_lr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="predictions-and-metrics">
+<h3>Predictions and Metrics<a class="headerlink" href="#predictions-and-metrics" title="Permalink to this headline">¶</a></h3>
+<p>We use our trained model to predict on the test set and display the confusion matrix. We calculate accuracy, precision, and recall for out model. It looks like our model does well!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_lr</span><span class="p">)</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">y_test_lr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.9629629629629629
+Precision: 0.9583333333333334
+Recall: 0.9787234042553191
+</pre></div>
+</div>
+<img alt="_images/models_31_1.png" src="_images/models_31_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_7.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To better evaluate our model, we examine the ROC curve. The area under the curve is close to 1, which is desired.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show roc curve </span>
+
+<span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_test_lr</span><span class="p">,</span> <span class="n">y_test_lr</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ROC Curve and AUC for Logistic Regression Model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_8.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/models_34_0.png" src="_images/models_34_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="interpreting-the-result">
+<h3>Interpreting the Result<a class="headerlink" href="#interpreting-the-result" title="Permalink to this headline">¶</a></h3>
+<p>A simple logistic regression model achieves astounding accuracy on the test set. It is possible that the data is inherently well-conditioned and that Algerian forest fires have particularly distinct features that set them apart from regular weather conditions. It is unclear how the model will respond to forest fires in other locations. Further exploration can be done by applying our model to areas with similar climates and monitoring the model’s variance. A question to ponder is: Are Algerian forest fires easier to predict than other forest fires?</p>
+</div>
+<div class="section" id="comparing-the-results">
+<h3>Comparing the Results<a class="headerlink" href="#comparing-the-results" title="Permalink to this headline">¶</a></h3>
+<p>Both models have impressive test accuarcy, for reasons explored earlier. However we do see that the random forest slightly outperforms the logistic model, achieving perfect test accuarcy. Although the accuarcy is per haps unexpectedly high, its relative performance to the logistic model is not surprising considering that random forests are in general more powerful architectures than logistic regression. The removal of the DC and BUI variables for the logistic model should not impact performance, as these are calculated from other variables in the data.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "fires"
+        },
+        kernelOptions: {
+            kernelName: "fires",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'fires'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="EDA.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Perform exploratory data analysis to guide model tuning</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Minori Jaggia, Leif-Martin Saether Sunde, Ingrid Chien, Johnson Du<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
