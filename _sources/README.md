@@ -6,7 +6,7 @@ Github page: https://ucb-stat-159-s22.github.io/hw07-group10/
 
 Dataset Link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6515974.svg)](https://doi.org/10.5281/zenodo.6515974)
 
-This is a project attempting to predict forest fires in a reproducible manner. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
+This is a project attempting to predict forest fires in a reproducible manner.  We conduct exploratory data analysis and use a random forest and logistic regression for prediction. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
 
 ## Attribute Information:
 
@@ -44,4 +44,4 @@ conda activate fires
 
 ### Reproducing the Figures
 
-You can reproduce specific figures by typing `make figures/figure_x.png`. The `x` is a number from 1 ~ 8 which corresponds to the figure number you want to reproduce.
+You can reproduce specific figures by typing `make figures/figure_x.png`. The `x` is a number from 1 ~ 10 which corresponds to the figure number you want to reproduce.
