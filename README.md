@@ -8,6 +8,8 @@ Dataset Link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6515974.svg)](
 
 This is a project attempting to predict forest fires in a reproducible manner.  We conduct exploratory data analysis and use a random forest and logistic regression for prediction. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
 
+Author contributions can be found at the end of `main.ipynb`.
+
 ## Attribute Information:
 
 1. Date : (DD/MM/YYYY) Day, month ('june' to 'september'), year (2012) Weather data observations
