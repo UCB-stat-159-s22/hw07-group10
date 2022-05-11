@@ -439,12 +439,16 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">dataframe_image</span> <span class="k">as</span> <span class="nn">dfi</span>
 
 <span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="n">utils</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">plot_roc_curve</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
@@ -979,8 +983,8 @@ Recall: 1.0
 <p>We use our trained model to predict on the test set and display the confusion matrix. We calculate accuracy, precision, and recall for out model. It looks like our model does well!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_lr</span><span class="p">)</span>
-<span class="n">figure</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">y_test_lr</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_predict_lr</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_lr</span><span class="p">)</span>
+<span class="n">figure</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">y_predict_lr</span><span class="p">,</span> <span class="n">y_test_lr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1022,7 +1026,186 @@ Recall: 0.9787234042553191
 </div>
 <div class="section" id="comparing-the-results">
 <h3>Comparing the Results<a class="headerlink" href="#comparing-the-results" title="Permalink to this headline">¶</a></h3>
-<p>Both models have impressive test accuarcy, for reasons explored earlier. However we do see that the random forest slightly outperforms the logistic model, achieving perfect test accuarcy. Although the accuarcy is per haps unexpectedly high, its relative performance to the logistic model is not surprising considering that random forests are in general more powerful architectures than logistic regression. The removal of the DC and BUI variables for the logistic model should not impact performance, as these are calculated from other variables in the data.</p>
+<p>Both models have impressive test accuracy, for reasons explored earlier. However we do see that the random forest slightly outperforms the logistic model, achieving perfect test accuarcy. Although the accuarcy is per haps unexpectedly high, its relative performance to the logistic model is not surprising considering that random forests are in general more powerful architectures than logistic regression. The removal of the DC and BUI variables for the logistic model should not impact performance, as these are calculated from other variables in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#compute accuracy, precision, and recall from both models and output in dataframe for comparison</span>
+<span class="n">rf_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_rf</span><span class="p">,</span> <span class="n">y_predict_rf</span><span class="p">)</span>
+<span class="n">rf_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test_rf</span><span class="p">,</span> <span class="n">y_predict_rf</span><span class="p">)</span>
+<span class="n">rf_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test_rf</span><span class="p">,</span> <span class="n">y_predict_rf</span><span class="p">)</span>
+
+<span class="n">lr_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_lr</span><span class="p">,</span> <span class="n">y_predict_lr</span><span class="p">)</span>
+<span class="n">lr_precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test_lr</span><span class="p">,</span> <span class="n">y_predict_lr</span><span class="p">)</span>
+<span class="n">lr_recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test_lr</span><span class="p">,</span> <span class="n">y_predict_lr</span><span class="p">)</span>
+
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">,</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">],</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">rf_accuracy</span><span class="p">,</span> <span class="n">lr_accuracy</span><span class="p">],</span>
+                     <span class="s2">&quot;Precision&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">rf_precision</span><span class="p">,</span> <span class="n">lr_precision</span><span class="p">],</span> <span class="s2">&quot;Recall&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">rf_recall</span><span class="p">,</span> <span class="n">lr_recall</span><span class="p">]})</span>
+
+<span class="c1">#save model comparison dataframe as image</span>
+<span class="n">dfi</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">comparison</span><span class="p">,</span> <span class="s2">&quot;figures/figure_9.png&quot;</span><span class="p">)</span>
+
+<span class="n">comparison</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0511/143005.984178:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[0511/143005.984298:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[0511/143005.986689:WARNING:bluez_dbus_manager.cc(248)] Floss manager not present, cannot set Floss enable/disable.
+[0511/143005.986939:ERROR:zygote_host_impl_linux.cc(263)] Failed to adjust OOM score of renderer with pid 1982: Permission denied (13)
+[0511/143005.993488:ERROR:zygote_host_impl_linux.cc(263)] Failed to adjust OOM score of renderer with pid 1984: Permission denied (13)
+[0511/143006.007310:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+[0511/143006.184485:INFO:headless_shell.cc(659)] Written to file /tmp/tmpgsefqdfd/temp.png.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model</th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Logistic Regression</td>
+      <td>0.962963</td>
+      <td>0.978723</td>
+      <td>0.958333</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can further examine the importances of each feature in prediction by looking at the coefficients from our logistic regression model. As seen below, the FFMC was the most powerful in prediction (we can compare directly since we normalized the data). This makes sense based on our EDA which showed that FFMC combines aspects of many of the other features and is therefore the most holistic predictor of fires. In fact, this means that an increase of 1 point in FFMC increases the odds of a forest fire by about 10%, which is quite considerable. Fire scientists can use FFMC as a north star metric in understanding fire probabilities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#display sorted coefficients for features in the logistic regression model</span>
+<span class="n">feature_importances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Feature&quot;</span><span class="p">:</span> <span class="n">X_train_lr</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="s2">&quot;Coefficient&quot;</span><span class="p">:</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Coefficient&quot;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">#save feature importances dataframe as image</span>
+<span class="n">dfi</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">feature_importances</span><span class="p">,</span> <span class="s2">&quot;figures/figure_10.png&quot;</span><span class="p">)</span>
+
+<span class="n">feature_importances</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0511/143007.339859:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[0511/143007.340089:ERROR:bus.cc(397)] Failed to connect to the bus: Failed to connect to socket /var/run/dbus/system_bus_socket: No such file or directory
+[0511/143007.342139:WARNING:bluez_dbus_manager.cc(248)] Floss manager not present, cannot set Floss enable/disable.
+[0511/143007.342770:ERROR:zygote_host_impl_linux.cc(263)] Failed to adjust OOM score of renderer with pid 2044: Permission denied (13)
+[0511/143007.350505:ERROR:zygote_host_impl_linux.cc(263)] Failed to adjust OOM score of renderer with pid 2046: Permission denied (13)
+[0511/143007.364016:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+[0511/143007.537168:INFO:headless_shell.cc(659)] Written to file /tmp/tmpox71tagp/temp.png.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Feature</th>
+      <th>Coefficient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>FFMC</td>
+      <td>2.315579</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>ISI</td>
+      <td>2.162191</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>FWI</td>
+      <td>1.837229</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>DMC</td>
+      <td>0.343307</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Rain</td>
+      <td>0.216683</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>month</td>
+      <td>0.148903</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Region</td>
+      <td>0.116011</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Temperature</td>
+      <td>0.099857</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RH</td>
+      <td>0.084562</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ws</td>
+      <td>0.031104</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>day</td>
+      <td>-0.001194</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 </div>
 </div>

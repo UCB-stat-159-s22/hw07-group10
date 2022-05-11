@@ -596,9 +596,29 @@ const thebe_selector_output = ".output, .cell_output"
 <p style="text-align: center;">Figure 8: ROC curve for logistic regression model</p></div>
 <div class="section" id="interpreting-results-and-model-comparison">
 <h2>Interpreting Results and Model Comparison<a class="headerlink" href="#interpreting-results-and-model-comparison" title="Permalink to this headline">¶</a></h2>
-<p>Both models are extremely well-conditioned for the task of classifying forest fires. Even a simple logistic regression model with typical feature engineering achives a near perfect accuracy. Is it posisble that the data is inherently good for classification? Perhaps Algerian forest firest have particularly distinct features that make them easy to distinguish from regular forest conditions. From EDA, we see that most fires occured in July, leading us to believe that ‘month’ is a significant factor in determining fire occurence.</p>
+<p>Both models are extremely well-conditioned for the task of classifying forest fires. We display our scoring metrics below for easier comparison of the models. Even a simple logistic regression model with typical feature engineering achives a near perfect accuracy. Is it possible that the data is inherently good for classification? Perhaps Algerian forest firest have particularly distinct features that make them easy to distinguish from regular forest conditions. From EDA, we see that most fires occured in July, causing us to wonder if ‘month’ is a significant factor in determining fire occurence. We can examine the importances of each feature in prediction by looking at the coefficients from our logistic regression model. As seen below, the FFMC was the most powerful in prediction (we can compare directly since we normalized the data). This makes sense based on our EDA which showed that FFMC combines aspects of many of the other features and is therefore the most holistic predictor of fires. In fact, this means that an increase of 1 point in FFMC increases the odds of a forest fire by about 10%, which is quite considerable. Fire scientists can use FFMC as a north star metric in understanding fire probabilities.</p>
 <p>The random forest outperforms the logistic model. This is expected because random forests are more expressive. The removal of correlated variables in the logistic model need not be the reason for poorer performance because they are calculated from kept features. The random forest succeeds by using a non linear split that cannot be represented by the logistic model.</p>
 <p>Our models are conditioned to predict fires in regions of Algeria. It is unclear how the models will respond to forest fires in other locations. We aim to conduct further exploration by training our models with data from different locations with similar climates. We can monitor the models’ variances and ask the question: Are Algerian forest fires easier to predict than other forest fires?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_9.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_37_0.png" src="_images/main_37_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;figures/figure_10.png&quot;</span><span class="p">,</span>  <span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/main_38_0.png" src="_images/main_38_0.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="author-contributions">
@@ -622,12 +642,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p>Responsible for parts of <code class="docutils literal notranslate"><span class="pre">EDA.ipynb</span></code></p></li>
 <li><p>Responsible for <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></li>
+<li><p>Responsible for parts of model comparison and interpretation in <code class="docutils literal notranslate"><span class="pre">models.ipynb</span></code>.</p></li>
 <li><p>Responsible for parts of creating jupyterbook, and configuring github actions</p></li>
 </ul>
 <p><strong>Leif-Martin Sæther Sunde</strong></p>
 <ul class="simple">
 <li><p>Responsible for parts of <code class="docutils literal notranslate"><span class="pre">EDA.ipynb</span></code>.</p></li>
-<li><p>Responsible for comparing results in <code class="docutils literal notranslate"><span class="pre">models.ipynb</span></code>.</p></li>
+<li><p>Responsible for parts of comparing results in <code class="docutils literal notranslate"><span class="pre">models.ipynb</span></code>.</p></li>
 <li><p>Responsible for parts of README.</p></li>
 <li><p>Responsible for binder support.</p></li>
 <li><p>Responsible for parts of creating jupyterbook, and configuring github actions</p></li>
