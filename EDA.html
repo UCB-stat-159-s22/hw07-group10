@@ -326,12 +326,12 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1"># prep plotting aesthetics</span>
-<span class="c1">#set font size names</span>
+<span class="c1"># Prep plotting aesthetics</span>
+<span class="c1"># Set font size names</span>
 <span class="n">SMALL_SIZE</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">MEDIUM_SIZE</span> <span class="o">=</span> <span class="mi">16</span>
 <span class="n">BIGGER_SIZE</span> <span class="o">=</span> <span class="mi">22</span>
-<span class="c1">#set font sizes</span>
+<span class="c1"># Set font sizes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">SMALL_SIZE</span><span class="p">)</span>          <span class="c1"># controls default text sizes</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="n">BIGGER_SIZE</span><span class="p">)</span>    <span class="c1"># fontsize of the axes title</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">BIGGER_SIZE</span><span class="p">)</span>    <span class="c1"># fontsize of the x and y labels</span>
@@ -339,7 +339,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">SMALL_SIZE</span><span class="p">)</span>    <span class="c1"># fontsize of the tick labels</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">SMALL_SIZE</span><span class="p">)</span>    <span class="c1"># legend fontsize</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="n">BIGGER_SIZE</span><span class="p">)</span>  <span class="c1"># fontsize of the figure title</span>
-<span class="c1">#set figure size</span>
+<span class="c1"># Set figure size</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="c1"># size of the figure plotted</span>
 </pre></div>
 </div>
@@ -349,13 +349,13 @@ const thebe_selector_output = ".output, .cell_output"
 <h2>Load and format data<a class="headerlink" href="#load-and-format-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#load in cleaned data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load in cleaned data</span>
 <span class="n">DATA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/Algerian_forest_fires_dataset_CLEANED.csv&quot;</span><span class="p">)</span>
 
-<span class="c1">#drop extra index</span>
+<span class="c1"># Drop extra index</span>
 <span class="n">DATA</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="c1">#add datetime column based on day, month, year</span>
+<span class="c1"># Add datetime column based on day, month, year</span>
 <span class="n">DATA</span><span class="p">[</span><span class="s1">&#39;Datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">DATA</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">]])</span>
 
 <span class="n">DATA</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -504,7 +504,7 @@ const thebe_selector_output = ".output, .cell_output"
 <h2>Plot scatterplots and examine correlations<a class="headerlink" href="#plot-scatterplots-and-examine-correlations" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#scatter plot for all of the covariates except the date/time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatter plot for all of the covariates except the date/time</span>
 <span class="o">%</span><span class="k">time</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">DATA</span><span class="p">[[</span><span class="s1">&#39;Temperature&#39;</span><span class="p">,</span><span class="s1">&#39;RH&#39;</span><span class="p">,</span><span class="s1">&#39;Ws&#39;</span><span class="p">,</span><span class="s1">&#39;Rain&#39;</span><span class="p">,</span><span class="s1">&#39;FFMC&#39;</span><span class="p">,</span><span class="s1">&#39;DMC&#39;</span><span class="p">,</span><span class="s1">&#39;DC&#39;</span><span class="p">,</span><span class="s1">&#39;ISI&#39;</span><span class="p">,</span><span class="s1">&#39;BUI&#39;</span><span class="p">,</span><span class="s1">&#39;FWI&#39;</span><span class="p">]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_1.png&#39;</span><span class="p">)</span>
@@ -522,7 +522,7 @@ Wall time: 6.91 µs
 <p>From the pairplot we can examine outliers, but the only significant outliers we find are from the Rain variable, and we think theese should be included in the data as two days of heavy rain seems naturally occuring to us (rather than measurement error) and also useful information in understanding factors that lead to fire.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#examine numerical correlations between all variables</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Examine numerical correlations between all variables</span>
 <span class="n">DATA</span><span class="p">[[</span><span class="s1">&#39;Temperature&#39;</span><span class="p">,</span><span class="s1">&#39;RH&#39;</span><span class="p">,</span><span class="s1">&#39;Ws&#39;</span><span class="p">,</span><span class="s1">&#39;Rain&#39;</span><span class="p">,</span><span class="s1">&#39;FFMC&#39;</span><span class="p">,</span><span class="s1">&#39;DMC&#39;</span><span class="p">,</span><span class="s1">&#39;DC&#39;</span><span class="p">,</span><span class="s1">&#39;ISI&#39;</span><span class="p">,</span><span class="s1">&#39;BUI&#39;</span><span class="p">,</span><span class="s1">&#39;FWI&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -724,7 +724,7 @@ Wall time: 6.91 µs
 <h1>Take a closer look at related features<a class="headerlink" href="#take-a-closer-look-at-related-features" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#these features are the fire behaviour indices which are related to each other so we expect correlations here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These features are the fire behaviour indices which are related to each other so we expect correlations here</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">DATA</span><span class="p">[[</span><span class="s1">&#39;ISI&#39;</span><span class="p">,</span><span class="s1">&#39;BUI&#39;</span><span class="p">,</span><span class="s1">&#39;FWI&#39;</span><span class="p">]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_2.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -737,7 +737,7 @@ Wall time: 6.91 µs
 <p>As expected, there are strong linear relationships between FWI, BUI, and ISI. All three of these indices move together as they capture related information about how a fire will behave.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#these features are fuel moisture codes which are related to each other so we expect correlations here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># These features are fuel moisture codes which are related to each other so we expect correlations here</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">DATA</span><span class="p">[[</span><span class="s1">&#39;FFMC&#39;</span><span class="p">,</span><span class="s1">&#39;DMC&#39;</span><span class="p">,</span><span class="s1">&#39;DC&#39;</span><span class="p">,]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_3.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -750,7 +750,7 @@ Wall time: 6.91 µs
 <p>We observe linear relationships between the DMC and DC. While the relationship between FFMC and the two others seems to resemble a logarithmic relationship, although the curve is quite sharp. This means that as FFMC increases DC stays consistent until around 80 FFMC where the spread of DC increases greatly. The FFMC is an inverse measure of moisture content in easily ignited surface litter and other cured fine fuels, hence it is to be expected that this increases as the drought code increases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot one of the moisture codes and one of the fire behaviour indicies</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot one of the moisture codes and one of the fire behaviour indicies</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;DC&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;BUI&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">DATA</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/DC_by_BUI.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -766,7 +766,7 @@ Wall time: 6.91 µs
 <p>The FWI incorporates the ISI and BUI, meaning it is a compound covariate of a lot of the covariates that we expect could have prediction power over forest fires.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot kernel density estimate of FWI by fire status</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot kernel density estimate of FWI by fire status</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="s1">&#39;FWI&#39;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Classes&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">DATA</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/figure_4.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -782,7 +782,7 @@ Wall time: 6.91 µs
 <h2>Fires and temperature over time<a class="headerlink" href="#fires-and-temperature-over-time" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot boxplot of fires over month to see when fires are most common</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot boxplot of fires over month to see when fires are most common</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Classes&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">DATA</span><span class="p">[</span><span class="n">DATA</span><span class="p">[</span><span class="s1">&#39;Classes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;fire&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/Class_month_boxplot.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -795,7 +795,7 @@ Wall time: 6.91 µs
 <p>We observe that half of the fires are in the month of July, with a fairly even spread before and after.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot scatterplot of temperature over time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot scatterplot of temperature over time</span>
 <span class="n">DATA</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Datetime&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Temperature&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span><span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/temp_by_date.png&#39;</span><span class="p">)</span>
@@ -819,16 +819,16 @@ Wall time: 6.91 µs
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "fires"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "fires",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'fires'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
