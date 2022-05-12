@@ -22,7 +22,8 @@ This is a project attempting to predict forest fires in a reproducible manner.  
   - `/tools`: code and tests for python package.
   - Setup files: `setup.py`, `setup.cfg`, `pyproj.toml`.
 - Environment files: `environment.yml`, `envsetup.sh`.
-- Jupyter Book: `_config.yml`, `_toc.yml`, `conf.py`, `postBuild`, `requirements.txt`
+- Jupyter Book: `_config.yml`, `_toc.yml`, `conf.py`, `postBuild`, `requirements.txt`.
+- `contribution_statement.md`: authors' contributions.
 
 ## Dataset Attribute Information:
 
