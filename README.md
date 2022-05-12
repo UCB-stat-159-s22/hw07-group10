@@ -8,9 +8,23 @@ Dataset Link: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6515974.svg)](
 
 This is a project attempting to predict forest fires in a reproducible manner.  We conduct exploratory data analysis and use a random forest and logistic regression for prediction. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.
 
-Author contributions can be found at the end of `main.ipynb`.
+## Repository Structure
 
-## Attribute Information:
+- `/data`: original and intermediate data csv files.
+- `/figures`: all generated figures as png files.
+- `/models`: intermediate model object files for random forest classifier.
+- Jupyter Notebooks:
+  - `main.ipynb`: the main narrative notebook of the research project.
+  - `data_cleaning.ipynb`: code for cleaning the original data and saving the intermediate cleaned data.
+  - `EDA.ipynb`: code for exploratoring data analysis and generating EDA related figures.
+  - `models.ipynb`: code for the random forest classifier and logistic regression model and their corresponding figures.
+- Python utility package `tools`:
+  - `/tools`: code and tests for python package.
+  - Setup files: `setup.py`, `setup.cfg`, `pyproj.toml`.
+- Environment files: `environment.yml`, `envsetup.sh`.
+- Jupyter Book: `_config.yml`, `_toc.yml`, `conf.py`, `postBuild`, `requirements.txt`
+
+## Dataset Attribute Information:
 
 1. Date : (DD/MM/YYYY) Day, month ('june' to 'september'), year (2012) Weather data observations
 2. Temp : temperature noon (temperature max) in Celsius degrees: 22 to 42
