@@ -200,8 +200,13 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attribute-information">
-   Attribute Information:
+  <a class="reference internal nav-link" href="#repository-structure">
+   Repository Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset-attribute-information">
+   Dataset Attribute Information:
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -242,8 +247,13 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attribute-information">
-   Attribute Information:
+  <a class="reference internal nav-link" href="#repository-structure">
+   Repository Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset-attribute-information">
+   Dataset Attribute Information:
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -278,9 +288,32 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Github page: <a class="reference external" href="https://ucb-stat-159-s22.github.io/hw07-group10/">https://ucb-stat-159-s22.github.io/hw07-group10/</a></p>
 <p>Dataset Link: <a class="reference external" href="https://doi.org/10.5281/zenodo.6515974"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.6515974.svg" /></a></p>
 <p>This is a project attempting to predict forest fires in a reproducible manner.  We conduct exploratory data analysis and use a random forest and logistic regression for prediction. The data is of two regions of Algeria, namely the Bejaia region located in the northeast of Algeria and the Sidi Bel-abbes region located in the northwest of Algeria. The time period is from June 2012 to September 2012.</p>
-<p>Author contributions can be found at the end of <code class="docutils literal notranslate"><span class="pre">main.ipynb</span></code>.</p>
-<div class="section" id="attribute-information">
-<h2>Attribute Information:<a class="headerlink" href="#attribute-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="repository-structure">
+<h2>Repository Structure<a class="headerlink" href="#repository-structure" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/data</span></code>: original and intermediate data csv files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/figures</span></code>: all generated figures as png files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/models</span></code>: intermediate model object files for random forest classifier.</p></li>
+<li><p>Jupyter Notebooks:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.ipynb</span></code>: the main narrative notebook of the research project.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_cleaning.ipynb</span></code>: code for cleaning the original data and saving the intermediate cleaned data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EDA.ipynb</span></code>: code for exploratoring data analysis and generating EDA related figures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">models.ipynb</span></code>: code for the random forest classifier and logistic regression model and their corresponding figures.</p></li>
+</ul>
+</li>
+<li><p>Python utility package <code class="docutils literal notranslate"><span class="pre">tools</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/tools</span></code>: code and tests for python package.</p></li>
+<li><p>Setup files: <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>, <code class="docutils literal notranslate"><span class="pre">pyproj.toml</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Environment files: <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">envsetup.sh</span></code>.</p></li>
+<li><p>Jupyter Book: <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>, <code class="docutils literal notranslate"><span class="pre">postBuild</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="dataset-attribute-information">
+<h2>Dataset Attribute Information:<a class="headerlink" href="#dataset-attribute-information" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>Date : (DD/MM/YYYY) Day, month (‘june’ to ‘september’), year (2012) Weather data observations</p></li>
 <li><p>Temp : temperature noon (temperature max) in Celsius degrees: 22 to 42</p></li>
