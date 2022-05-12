@@ -30,6 +30,12 @@ figures/figure_7.png : models.ipynb $(CLEANED)
 figures/figure_8.png : models.ipynb $(CLEANED)
 	jupyter execute $<
 
+figures/figure_9.png : models.ipynb $(CLEANED)
+	jupyter execute $<
+
+figures/figure_10.png : models.ipynb $(CLEANED)
+	jupyter execute $<
+
 .PHONY : env
 env : 
 	bash -i envsetup.sh
