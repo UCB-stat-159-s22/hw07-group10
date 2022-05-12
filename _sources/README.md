@@ -16,7 +16,7 @@ This is a project attempting to predict forest fires in a reproducible manner.  
 - Jupyter Notebooks:
   - `main.ipynb`: the main narrative notebook of the research project.
   - `data_cleaning.ipynb`: code for cleaning the original data and saving the intermediate cleaned data.
-  - `EDA.ipynb`: code for exploratoring data analysis and generating EDA related figures.
+  - `EDA.ipynb`: code for exploratory data analysis and for EDA related figures.
   - `models.ipynb`: code for the random forest classifier and logistic regression model and their corresponding figures.
 - Python utility package `tools`:
   - `/tools`: code and tests for python package.
